@@ -1,8 +1,14 @@
 pipeline {
     agent any
-        // git branch: 'main', url: 'https://github.com/PalZol999/course3-jenkins-gs-spring-petclinic'
     
-        stage("build") {
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/PalZol999/course3-jenkins-gs-spring-petclinic'
+            }
+        }
+        
+        stage('build') {
             steps {
                 sh './mvnw clean package'
             }
@@ -33,11 +39,11 @@ pipeline {
                 }
             }
         }
-
-         post {
+    }
+       
+    post {
         always {
             echo "Performing cleanup tasks"
         }
     }
-    }
-    
+}
